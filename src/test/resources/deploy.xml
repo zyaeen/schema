@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<deploy project="5a99a0f7-b81e-420b-b30d-3f6b62375c5f" author="Ivanov Ivan Ivanovich"
+        dateTime="2023-03-17T11:09:51.544+03:00">
+    <dbHost dbName="sivbnrv" port="8125" dbType="hsqldb" host="lfgqwk" userName="ohjfpkj" clusterId="1" hostName="dbHost1">
+        <domain shortName="Domain2">
+            <item fqn="SK"/>
+            <item fqn="SK.HXL"/>
+        </domain>
+        <domain shortName="Domain1">
+            <item fqn="TWO"/>
+        </domain>
+    </dbHost>
+    <dbHost dbName="ycbfzpbur" port="1580" dbType="postgres" host="vdspqfjta" userName="qhiue" clusterId="2"/>
+    <fsHost folder="contdddfdo" host="fpefwgqaap" userName="tjutwdvc"  clusterId="1" hostName="fsHost1">
+        <domain shortName="Domain1">
+            <item fqn="TK"/>
+            <item fqn="TK.XIQ"/>
+            <item fqn="ONE"/>
+        </domain>
+        <domain shortName="Domain2">
+            <item fqn="HR"/>
+        </domain>
+    </fsHost>
+</deploy>

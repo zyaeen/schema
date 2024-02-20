@@ -1,0 +1,11 @@
+.idea
+*.iml
+target
+.settings
+.idea/*
+*.stackdump
+
+src/test/resources/domains
+src/test/resources/schemas
+src/test/java/org/leandi/schema/UnionTest.java
+/src/test/resources/pbo-project.xml

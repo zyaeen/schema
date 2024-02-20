@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project dateTime="2023-03-14T12:04:10.441+03:00" xmlns:ns2="urn:org:leandi:schema" uid="5a99a0f7-b81e-420b-b30d-3f6b62375c5f">
+    <domain name="Domain1" shortName="Domain1" dateTime="2023-03-02T15:58:31.821+03:00">
+        <knot mnemonic="ONE" identity="bigint" descriptor="KNOT" uid="cd550463-1535-4852-bad9-4449224b3e7a" deprecated="false">
+            <layout x="172.31" y="-253.08" fixed="true"/>
+            <description>Knot Example Description</description>
+            <values/>
+        </knot>
+        <knot mnemonic="TWO" identity="bigint" descriptor="KNOT" uid="649ab3b0-71be-4225-a096-c023a9def42a" deprecated="false">
+            <layout x="215.38" y="-161.54" fixed="true"/>
+            <description>Knot Example Description</description>
+            <values/>
+        </knot>
+        <knot mnemonic="THR" identity="bigint" descriptor="KNOT" uid="761ee445-01e4-4b46-96d8-2f8cf6063a3d" deprecated="false">
+            <layout x="240.0" y="-80.0" fixed="true"/>
+            <description>Knot Example Description</description>
+            <values/>
+        </knot>
+        <knot mnemonic="FOU" identity="bigint" descriptor="KNOT" uid="198d742a-7188-4401-a704-a3c01bd9f46f" deprecated="false">
+            <layout x="200.77" y="5.38" fixed="true"/>
+            <description>Knot Example Description</description>
+            <values/>
+        </knot>
+        <knot mnemonic="ASD" identity="bigint" descriptor="KnotExample" uid="9f975c91-0db8-4afc-a8b6-9a88e0e21231" deprecated="false">
+            <layout x="-85.38" y="150.77" fixed="true"/>
+            <description>Knot Example Description</description>
+            <values/>
+        </knot>
+        <anchor mnemonic="TK" identity="bigint" skip="false" descriptor="ANCHOR" uid="9dd6ffdc-6fcb-4f3b-a700-ca7fbdf96382" deprecated="false">
+            <layout x="-181.54" y="-216.15" fixed="false"/>
+            <description>Anchor Example Description</description>
+            <attribute mnemonic="XIQ" dataRange="bigint" descriptor="AttributeExample" uid="6d142e3f-44c2-420f-b334-c9ac10af821e" deprecated="false">
+                <layout x="-22.31" y="-199.23" fixed="false"/>
+                <description>Attribute Example Description</description>
+                <extendedColumn knotRange="ONE" descriptor="colNameExaxmple" uid="d333510e-e3f6-4a71-bc54-253401439212" deprecated="false">
+                    <description>colDescExample</description>
+                </extendedColumn>
+            </attribute>
+            <attribute mnemonic="OFN" descriptor="AttributeExample" uid="365f7e60-e951-4938-9e2d-5fdf20a83896">
+                <layout x="-143.08" y="-29.23" fixed="true"/>
+                <description>Attribute Example Description</description>
+            </attribute>
+        </anchor>
+    </domain>
+    <domain name="Domain2" shortName="Domain2" dateTime="2023-03-14T12:04:01.879+03:00">
+        <anchor mnemonic="SK" identity="bigint" descriptor="AnchorExample" uid="aeef0a5b-8ed7-4835-8404-293f1d72f102">
+            <layout x="-144.62" y="-10.77" fixed="false"/>
+            <description>Anchor Example Description</description>
+            <attribute mnemonic="HXL" dataRange="bigint" descriptor="AttributeExample" uid="afb47c5b-79dc-4f43-bd19-28202a36b56e">
+                <layout x="23.85" y="23.85" fixed="false"/>
+                <description>Attribute Example Description</description>
+                <extendedColumn dataRange="bigint" length="512" descriptor="colNameExaxmple" uid="e70bf170-9ee9-4df0-a8cf-ebcb8ea2c6f6">
+                    <description>colDescExample</description>
+                </extendedColumn>
+            </attribute>
+        </anchor>
+        <cdAnchor mnemonic="HR" identity="bigint" descriptor="CdAnchorExample" uid="e1e923b2-6e39-46a2-b97a-3adaf1496d6f">
+            <layout x="42.31" y="40.0" fixed="false"/>
+            <description>Cross Domain Anchor Example Description</description>
+        </cdAnchor>
+        <tie descriptor="SK_roleExample_HR_roleExample" uid="8423426d-11b9-4787-8caa-d4ea5dc2facb">
+            <layout x="-11.54" y="-13.85" fixed="false"/>
+            <description>Tie Example Description</description>
+            <anchorRole type="SK" role="roleExample" identifier="false"/>
+            <anchorRole type="HR" role="roleExample" identifier="false"/>
+        </tie>
+    </domain>
+    <connexions descriptor="Domain2 to Domain1" uid="12287b95-393c-49be-ac34-5bfaa9574310">
+        <anchorRole type="HR" domain="Domain2" role="roleExample" identifier="true"/>
+        <anchorRole type="TK" domain="Domain1" role="roleExample" identifier="false"/>
+    </connexions>
+</project>
