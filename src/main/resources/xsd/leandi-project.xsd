@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+
+           xmlns="urn:org:leandi:schema"
+           targetNamespace="urn:org:leandi:schema"
+
+           xmlns:dom="urn:org:leandi:schema:domain"
+           xmlns:bt="urn:org:leandi:schema:base-types"
+           version="0.9">
+
+    <xs:import namespace="urn:org:leandi:schema:domain" schemaLocation="leandi-domain.xsd"/>
+    <xs:import namespace="urn:org:leandi:schema:base-types" schemaLocation="leandi-base-types.xsd"/>
+
+    <xs:element name="project">
+        <xs:annotation>
+            <xs:documentation>
+                Описательная часть проекта, включающего в себя домены.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="domain" type="dom:domain" maxOccurs="unbounded"/>
+                <xs:element name="connexions" type="connexions" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="uid" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        UID проекта.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attributeGroup ref="bt:description"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="connexions">
+        <xs:annotation>
+            <xs:documentation>Определение связей между доменами посредством кросс-доменных анкеров.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="dom:objectInfo">
+                <xs:sequence>
+                    <xs:element name="anchorRole" type="dom:anchorRole" minOccurs="2" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+</xs:schema>

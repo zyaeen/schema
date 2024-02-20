@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<bindings version="3.0" xmlns="https://jakarta.ee/xml/ns/jaxb"
+          xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <bindings schemaLocation="xsd/leandi-project.xsd" node="/xs:schema">
+        <schemaBindings>
+            <package name="org.leandi.schema"/>
+        </schemaBindings>
+    </bindings>
+    <bindings schemaLocation="xsd/leandi-deploy-model.xsd" node="/xs:schema">
+        <schemaBindings>
+            <package name="org.leandi.schema.deploy"/>
+        </schemaBindings>
+    </bindings>
+    <bindings schemaLocation="xsd/leandi-domain.xsd" node="/xs:schema">
+        <schemaBindings>
+            <package name="org.leandi.schema.domain"/>
+        </schemaBindings>
+    </bindings>
+    <bindings schemaLocation="xsd/leandi-base-types.xsd" node="/xs:schema">
+        <schemaBindings>
+            <package name="org.leandi.schema.domain.basetypes"/>
+        </schemaBindings>
+    </bindings>
+    <globalBindings>
+        <xjc:serializable uid="202303090812"/>
+    </globalBindings>
+</bindings>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="urn:org:leandi:schema:deploy"
+           targetNamespace="urn:org:leandi:schema:deploy"
+           xmlns:bt="urn:org:leandi:schema:base-types"
+           version="0.9">
+
+    <xs:import namespace="urn:org:leandi:schema:base-types" schemaLocation="leandi-base-types.xsd"/>
+
+    <xs:complexType name="deploy">
+        <xs:annotation>
+            <xs:documentation>Модель деплоя</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dbHost" type="dbHost" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="fsHost" type="fsHost" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="project" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Uid проекта, к которому относится данная модель развертывания.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="name" type="xs:string"/>
+        <xs:attribute name="shortName" type="xs:string"/>
+        <xs:attributeGroup ref="bt:description"/>
+    </xs:complexType>
+
+    <xs:complexType name="dbHost">
+        <xs:annotation>
+            <xs:documentation>Хост базы данных.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="hostInfo">
+                <xs:attribute name="dbName" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Имя базы данных.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="port" type="port">
+                    <xs:annotation>
+                        <xs:documentation>Порт подключения.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="dbType" type="dbTypeType">
+                    <xs:annotation>
+                        <xs:documentation>База данных, используемая для хранения.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="fsHost">
+        <xs:annotation>
+            <xs:documentation>Хост базы данных.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="hostInfo">
+                <xs:attribute name="folder" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Путь в файловой системе</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="hostInfo">
+        <xs:annotation>
+            <xs:documentation>Общая часть представления хостов</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="domain" type="domain" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        Перечисление доменов, элементы которых хранятся на данном хосте.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="host" type="xs:string" use="required"/>
+        <xs:attribute name="userName" type="xs:string"/>
+        <xs:attribute name="uid" type="xs:string"/>
+        <xs:attribute name="clusterId" type="xs:string"/>
+        <xs:attribute name="hostName" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="domain">
+        <xs:annotation>
+            <xs:documentation>Домен</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="item" type="deployItem" minOccurs="0" maxOccurs="unbounded">
+                <xs:unique name="uniqueItem">
+                    <xs:selector xpath="item"/>
+                    <xs:field xpath="@fqn"/>
+                </xs:unique>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="shortName" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Краткое наименование домена.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="deployItem">
+        <xs:annotation>
+            <xs:documentation>Описания способа развертывания/хранения данных</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="fqn" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Full qualified name. Полное квалификационное наименование объекта проекта.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+
+    <xs:simpleType name="dbTypeType">
+        <xs:annotation>
+            <xs:documentation>Поддерживаемые типы БД</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="postgres"/>
+            <xs:enumeration value="hsqldb"/>
+            <xs:enumeration value="oracle"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="port">
+        <xs:annotation>
+            <xs:documentation>Порт подключения</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:length value="4"/>
+            <xs:pattern value="[0-9]{4}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

@@ -1,0 +1,178 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+
+           xmlns="urn:org:leandi:schema:base-types"
+           targetNamespace="urn:org:leandi:schema:base-types"
+
+           version="0.9">
+    <xs:annotation>
+        <xs:documentation>Базовые типы</xs:documentation>
+    </xs:annotation>
+
+    <xs:simpleType name="dataRange">
+        <xs:restriction base="xs:string">
+            <!-- Временно удаляем во избежания всякого рода неожиданных ожиданий -->
+            <xs:enumeration value="date"/>
+            <xs:enumeration value="time"/>
+            <xs:enumeration value="bigint"/>
+            <xs:enumeration value="string"/>
+            <xs:enumeration value="numeric"/>
+
+            <xs:enumeration value="jsonb"/>
+            <xs:enumeration value="xml"/>
+            <xs:enumeration value="bool"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="typep">
+        <xs:restriction base="xs:string">
+            <!-- Временно удаляем во избежания всякого рода неожиданных ожиданий -->
+            <!--            <xs:enumeration value="date"/>-->
+            <!--            <xs:enumeration value="time"/>-->
+            <xs:enumeration value="NUMBER"/>
+            <xs:enumeration value="VARCHAR"/>
+            <xs:enumeration value="DATE"/>
+            <xs:enumeration value="TIME"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="knotDataRange">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="string"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="identity">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="bigint"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="layout">
+        <xs:annotation>
+            <xs:documentation>Расположение</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="x" type="xs:double"/>
+        <xs:attribute name="y" type="xs:double"/>
+        <xs:attribute name="fixed" type="xs:boolean"/>
+    </xs:complexType>
+
+    <xs:simpleType name="mnemonic2">
+        <xs:annotation>
+            <xs:documentation>Буквенный код, состоящий из 2 символов A-Z в верхнем регистре. Используется для
+                обозначения анкора.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:length value="2"/>
+            <xs:pattern value="[A-Z][A-Z]"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="color">
+        <xs:restriction base="xs:string">
+            <xs:length value="6"/>
+            <xs:pattern value="\d{6}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="mnemonic3">
+        <xs:annotation>
+            <xs:documentation>The only acceptable value is 3 of the UPPERCASE letters from a to z. This type is used to
+                describe knot and attribute.
+            </xs:documentation>
+            <xs:documentation>Буквенный код, состоящий из 3 символов A-Z в верхнем регистре. Используется для
+                обозначения кнота и атрибута.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:length value="3"/>
+            <xs:pattern value="[A-Z]{3}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="descriptor">
+        <xs:annotation>
+            <xs:documentation>Идентификатор объекта схемы: anchor, tie, knot &amp; attribute. Накладываются ограничения
+                - идентификатор не должен содержать пробелы, переводы строк, табуляторы.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:whiteSpace value="collapse"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="values">
+        <xs:sequence>
+            <xs:element name="value" type="value" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="item" type="value" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="value">
+        <xs:annotation>
+            <xs:documentation>Пары значений</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="id" type="xs:long"/>
+        <xs:attribute name="uid" type="xs:string"/>
+        <xs:attribute name="value" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:attributeGroup name="description">
+        <xs:annotation>
+            <xs:documentation>
+                Стандартный набор атрибутов, составляющих описание проекта, домена или модели деплоя
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="author" type="xs:string"/>
+        <xs:attribute name="version" type="xs:string"/>
+        <xs:attribute name="dateTime" type="xs:dateTime"/>
+        <xs:attribute name="note" type="xs:string"/>
+    </xs:attributeGroup>
+
+    <xs:simpleType name="indexTypeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="unique"/>
+            <xs:enumeration value="ordinary"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="columnsType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="column" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="constraintType">
+        <xs:sequence>
+            <xs:element type="indexTypeType" name="type"/>
+            <xs:element type="columnsType" name="columns"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="constraintsType">
+        <xs:sequence>
+            <xs:element type="constraintType" name="constraint" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="indexType">
+        <xs:sequence>
+            <xs:element type="indexTypeType" name="type"/>
+            <xs:element type="columnsType" name="columns"/>
+            <xs:element type="method" name="method"/>
+            <xs:element type="xs:string" name="uid"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="indexesType">
+        <xs:sequence>
+            <xs:element type="indexType" name="index" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="method">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="B_TREE"/>
+            <xs:enumeration value="HASH"/>
+            <xs:enumeration value="BITMAP"/>
+            <xs:enumeration value="GIN"/>
+            <xs:enumeration value="GiST"/>
+            <xs:enumeration value="SP_GiST"/>
+            <xs:enumeration value="BRIN"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
